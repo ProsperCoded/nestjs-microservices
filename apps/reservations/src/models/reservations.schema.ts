@@ -3,6 +3,7 @@ import { AbstractDocument } from '@app/common';
 
 @Schema({ versionKey: false })
 export class ReservationDocument extends AbstractDocument {
+  @Prop()
   timestamp: Date;
 
   @Prop()

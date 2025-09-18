@@ -12,6 +12,11 @@ export class ReservationsService {
     return this.reservationsRepository.create({
       ...createReservationDto,
       timestamp: new Date(),
+      startDate: new Date(createReservationDto.startDate),
+      endDate: new Date(createReservationDto.endDate),
+      invoiceId: createReservationDto.invoiceId,
+      placeId: createReservationDto.placeId,
+      userId: createReservationDto.userId,
     });
   }
 

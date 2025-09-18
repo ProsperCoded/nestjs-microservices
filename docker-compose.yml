@@ -1,0 +1,26 @@
+services:
+  reservations:
+    build:
+      context: . # This is the root of the project
+      dockerfile: ./apps/reservations/DockerFile
+      target: development
+    command: pnpm run dev reservations # This is the command to run the reservations service
+    # This is the environment file for the reservations service
+    env_file:
+      - .env
+    # This is the port mapping for the reservations service
+    ports:
+      - '3001:3001'
+    # This is the volume mapping for the reservations service (This maps the root of the project to the /usr/src/app directory in the container)
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+  mongo:
+    image: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
