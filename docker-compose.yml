@@ -1,4 +1,18 @@
 services:
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/DockerFile
+      target: development
+    command: pnpm run dev auth
+    # This is the environment file for the auth service
+    env_file:
+      - .env
+    ports:
+      - '3002:3002'
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
   reservations:
     build:
       context: . # This is the root of the project
