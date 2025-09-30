@@ -5,9 +5,18 @@ services:
       dockerfile: ./apps/auth/DockerFile
       target: development
     command: pnpm run dev auth
+    # develop:
+    #   watch:
+    #     # Rule for watching files in the ./apps/auth directory
+    #     - action: sync # Or rebuild
+    #       path: ./apps/auth
+    #       target: /apps/auth
     # This is the environment file for the auth service
     env_file:
       - .env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
     ports:
       - '3002:3002'
     volumes:
@@ -22,6 +31,9 @@ services:
     # This is the environment file for the reservations service
     env_file:
       - .env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
     # This is the port mapping for the reservations service
     ports:
       - '3001:3001'
@@ -31,6 +43,9 @@ services:
       - /usr/src/app/node_modules
   mongo:
     image: mongo
+    command: mongod --quiet --logpath /dev/null
+    # logging:
+    #   driver: 'none'
     ports:
       - '27017:27017'
     volumes:

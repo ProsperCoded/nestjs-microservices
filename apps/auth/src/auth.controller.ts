@@ -4,8 +4,10 @@ import { LocalGuard } from './guards/local.guard';
 import { CurrentUser } from './decorator/current-user.decorator';
 import { UserDocument } from './users/schemas/user.schema';
 import type { Response } from 'express';
+import { JwtAuthGuard } from 'apps/auth/src/guards/jwt-auth.gaurd';
+// import { MessagePattern, Payload } from '@nestjs/microservices';
 
-@Controller()
+@Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -17,5 +19,11 @@ export class AuthController {
   ) {
     const jwt = await this.authService.login(user, response);
     response.send(jwt);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  async me(@CurrentUser() user: UserDocument) {
+    return user;
   }
 }

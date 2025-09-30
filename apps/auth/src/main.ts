@@ -8,7 +8,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.useLogger(app.get(Logger));
   const configService = app.get(ConfigService);
-  await app.listen(configService.get('PORT') ?? 3002);
-  console.log(`Auth service is running on port ${configService.get('PORT')}`);
+  await app.listen(3002);
+  console.log(`Auth service is running on port ${3002}`);
 }
 bootstrap();

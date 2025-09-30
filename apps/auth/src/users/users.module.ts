@@ -6,6 +6,7 @@ import {
   UserDocument,
   UserSchema,
 } from 'apps/auth/src/users/schemas/user.schema';
+import { UsersRepository } from 'apps/auth/src/users/users.repository';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import {
     ]),
   ],
   controllers: [UsersController],
-  providers: [UsersService],
-  exports: [UsersService],
+  providers: [UsersService, UsersRepository],
+  exports: [UsersService, UsersRepository],
 })
 export class UsersModule {}
