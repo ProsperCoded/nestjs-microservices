@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { DatabaseModule } from '@app/common';
@@ -7,7 +7,7 @@ import {
   UserSchema,
 } from 'apps/auth/src/users/schemas/user.schema';
 import { UsersRepository } from 'apps/auth/src/users/users.repository';
-import { AuthModule } from 'apps/auth/src/auth.module';
+import { AuthModule } from '../auth.module';
 
 @Module({
   imports: [
@@ -15,7 +15,7 @@ import { AuthModule } from 'apps/auth/src/auth.module';
     DatabaseModule.forFeature([
       { name: UserDocument.name, schema: UserSchema },
     ]),
-    AuthModule,
+    forwardRef(() => AuthModule),
   ],
   controllers: [UsersController],
   providers: [UsersService, UsersRepository],

@@ -5,13 +5,6 @@ services:
       dockerfile: ./apps/auth/DockerFile
       target: development
     command: pnpm run dev auth
-    # develop:
-    #   watch:
-    #     # Rule for watching files in the ./apps/auth directory
-    #     - action: sync # Or rebuild
-    #       path: ./apps/auth
-    #       target: /apps/auth
-    # This is the environment file for the auth service
     env_file:
       - .env
     environment:
@@ -22,30 +15,29 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    depends_on:
+      - mongo
   reservations:
     build:
-      context: . # This is the root of the project
+      context: .
       dockerfile: ./apps/reservations/DockerFile
       target: development
-    command: pnpm run dev reservations # This is the command to run the reservations service
-    # This is the environment file for the reservations service
+    command: pnpm run dev reservations
     env_file:
       - .env
     environment:
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
-    # This is the port mapping for the reservations service
     ports:
       - '3001:3001'
-    # This is the volume mapping for the reservations service (This maps the root of the project to the /usr/src/app directory in the container)
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
+    depends_on:
+      - mongo
   mongo:
     image: mongo
     command: mongod --quiet --logpath /dev/null
-    # logging:
-    #   driver: 'none'
     ports:
       - '27017:27017'
     volumes:
