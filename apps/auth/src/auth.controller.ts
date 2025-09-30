@@ -20,10 +20,4 @@ export class AuthController {
     const jwt = await this.authService.login(user, response);
     response.send(jwt);
   }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('me')
-  async me(@CurrentUser() user: UserDocument) {
-    return user;
-  }
 }

@@ -7,6 +7,7 @@ import {
   UserSchema,
 } from 'apps/auth/src/users/schemas/user.schema';
 import { UsersRepository } from 'apps/auth/src/users/users.repository';
+import { AuthModule } from 'apps/auth/src/auth.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { UsersRepository } from 'apps/auth/src/users/users.repository';
     DatabaseModule.forFeature([
       { name: UserDocument.name, schema: UserSchema },
     ]),
+    AuthModule,
   ],
   controllers: [UsersController],
   providers: [UsersService, UsersRepository],
