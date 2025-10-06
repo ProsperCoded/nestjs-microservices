@@ -6,40 +6,65 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { JwtAuthGuard } from '@app/common';
+import { CurrentUser } from '@app/common';
+import type { UserDto } from '@app/common';
 
 @Controller('reservations')
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createReservationDto: CreateReservationDto) {
-    return this.reservationsService.create(createReservationDto);
+  async create(
+    @Body() createReservationDto: CreateReservationDto,
+    @CurrentUser() user: UserDto,
+  ) {
+    const _user = await this.reservationsService.create(
+      createReservationDto,
+      user,
+    );
+    console.log(_user);
+    return _user;
   }
 
   @Get()
-  findAll() {
-    return this.reservationsService.findAll();
+  async findAll() {
+    const _user = await this.reservationsService.findAll();
+    console.log(_user);
+    return _user;
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.reservationsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const _user = await this.reservationsService.findOne(id);
+    console.log(_user);
+    return _user;
   }
 
   @Patch(':id')
-  update(
+  @UseGuards(JwtAuthGuard)
+  async update(
     @Param('id') id: string,
     @Body() updateReservationDto: UpdateReservationDto,
   ) {
-    return this.reservationsService.update(id, updateReservationDto);
+    const _user = await this.reservationsService.update(
+      id,
+      updateReservationDto,
+    );
+    console.log(_user);
+    return _user;
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.reservationsService.remove(id);
+  @UseGuards(JwtAuthGuard)
+  async remove(@Param('id') id: string) {
+    await this.reservationsService.remove(id);
+    return { message: 'Reservation deleted successfully' };
   }
 }

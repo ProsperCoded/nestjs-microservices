@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'apps/auth/src/guards/jwt-auth.gaurd';
+import { JwtAuthGuard } from 'apps/auth/src/guards/jwt-auth.guard';
 import { CreateUserDto } from 'apps/auth/src/users/dto/create-user.dto';
 import { UserDocument } from 'apps/auth/src/users/schemas/user.schema';
 import { UsersService } from 'apps/auth/src/users/users.service';
-import { CurrentUser } from 'apps/auth/src/decorator/current-user.decorator';
+import { CurrentUser } from '@app/common/decorators/current-user.decorator';
 
 @Controller('users')
 export class UsersController {
