@@ -11,6 +11,7 @@ import {
 } from 'apps/reservations/src/models/reservations.schema';
 import { LoggerModule } from '@app/common';
 import { ConfigService } from '@nestjs/config';
+import { ConfigModule } from './config';
 @Module({
   imports: [
     DatabaseModule,
@@ -18,6 +19,7 @@ import { ConfigService } from '@nestjs/config';
       { name: ReservationDocument.name, schema: ReservationSchema },
     ]),
     LoggerModule,
+    ConfigModule,
     ClientsModule.registerAsync([
       {
         name: AUTH_SERVICE,

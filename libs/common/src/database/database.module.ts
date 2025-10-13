@@ -1,4 +1,4 @@
-import { ConfigModule } from '@app/common/config';
+import { ConfigModule } from 'apps/payments/src/config';
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ModelDefinition, MongooseModule } from '@nestjs/mongoose';
