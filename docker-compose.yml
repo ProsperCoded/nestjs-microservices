@@ -53,6 +53,26 @@ services:
       - /usr/src/app/node_modules
     depends_on:
       - mongo
+
+  notifications:
+    build:
+      context: .
+      dockerfile: ./apps/notifications/DockerFile
+      target: development
+    command: pnpm run dev notifications
+    env_file:
+      - .env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    ports:
+      - '3004:3004'
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - mongo
+
   mongo:
     image: mongo
     command: mongod --quiet --logpath /dev/null
