@@ -11,9 +11,10 @@ COPY pnpm-lock.yaml ./
 
 RUN pnpm install --prefer-offline
 
-COPY . .
+COPY apps/reservations apps/reservations
+COPY libs libs
 
-RUN pnpm run build
+RUN pnpm run build reservations
 
 EXPOSE 3001
 

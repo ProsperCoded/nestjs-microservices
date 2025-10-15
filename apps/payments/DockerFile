@@ -9,11 +9,17 @@ RUN npm install -g pnpm
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 
+COPY tsconfig.json tsconfig.json
+COPY nest-cli.json nest-cli.json
+
+
 RUN pnpm install --prefer-offline
 
-COPY . .
+  
+COPY apps/payments apps/payments
+COPY libs libs
 
-RUN pnpm run build
+RUN pnpm run build payments
 
 EXPOSE 3003
 
@@ -32,7 +38,9 @@ COPY pnpm-lock.yaml ./
 RUN npm install -g pnpm
 
 RUN pnpm install --prod --prefer-offline
-
+COPY tsconfig.json tsconfig.json
+COPY nest-cli.json nest-cli.json
+    
 EXPOSE 3003
 
 COPY --from=development /usr/src/app/dist ./dist
