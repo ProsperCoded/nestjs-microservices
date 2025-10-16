@@ -8,13 +8,14 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { LocalStrategy } from 'apps/auth/src/strategies/local.strategy';
 import { JwtStrategy } from 'apps/auth/src/strategies/jwt.strategy';
+import { HealthModule } from '@app/common/health';
 
 @Module({
   imports: [
     forwardRef(() => UsersModule),
     LoggerModule,
     ConfigModule,
-
+    HealthModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({

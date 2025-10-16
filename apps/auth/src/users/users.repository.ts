@@ -2,7 +2,7 @@ import { AbstractRepository } from '@app/common';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserDocument } from 'apps/auth/src/users/schemas/user.schema';
+import { UserDocument } from '@app/common/model/schemas/user.schema';
 
 @Injectable()
 export class UsersRepository extends AbstractRepository<UserDocument> {

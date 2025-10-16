@@ -13,12 +13,14 @@ COPY tsconfig.json tsconfig.json
 COPY nest-cli.json nest-cli.json
 
 
-RUN pnpm install --prefer-offline
 
-  
+
+
 COPY apps/payments apps/payments
 COPY libs libs
 
+RUN pnpm install --prefer-offline -r
+# or try pnpm install -r
 RUN pnpm run build payments
 
 EXPOSE 3003

@@ -5,6 +5,7 @@ import { DatabaseModule, PAYMENTS_SERVICE } from '@app/common';
 import { ReservationsRepository } from './reservations.repository';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AUTH_SERVICE } from '@app/common';
+import { HealthModule } from '@app/common/health';
 import {
   ReservationDocument,
   ReservationSchema,
@@ -19,6 +20,7 @@ import { ConfigModule } from './config';
       { name: ReservationDocument.name, schema: ReservationSchema },
     ]),
     LoggerModule,
+    HealthModule,
     ConfigModule,
     ClientsModule.registerAsync([
       {

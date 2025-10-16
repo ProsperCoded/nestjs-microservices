@@ -5,7 +5,7 @@ import { DatabaseModule } from '@app/common';
 import {
   UserDocument,
   UserSchema,
-} from 'apps/auth/src/users/schemas/user.schema';
+} from '@app/common/model/schemas/user.schema';
 import { UsersRepository } from 'apps/auth/src/users/users.repository';
 import { AuthModule } from '../auth.module';
 

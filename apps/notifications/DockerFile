@@ -13,10 +13,11 @@ COPY tsconfig.json tsconfig.json
 COPY nest-cli.json nest-cli.json
 
 
-RUN pnpm install --prefer-offline
 
 COPY apps/notifications apps/notifications
 COPY libs libs
+
+RUN pnpm install --prefer-offline -r
 
 RUN pnpm run build notifications
 
